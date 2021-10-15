@@ -1,0 +1,18 @@
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  retrospective_job:
+    runs-on: ubuntu-latest
+    name: A job to run the Retrospective Action
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Retrospective Spike Action
+        uses: ./ # Uses an action in the root directory
+        id: spike-retro
+        with:
+          sprint-duration-days: 8
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}"
