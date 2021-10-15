@@ -1,0 +1,13 @@
+name: 'Spiking Retro Action'
+description: 'Spiking Retrospect custom action by creating a Javascript action'
+inputs:
+  sprint-duration-days:
+    description: 'How many days are in the sprint? (Including weekends)'
+    required: true
+    default: 2
+outputs:
+  time:
+    description: 'The time we greeted you'
+runs:
+  using: 'node16'
+  main: 'index.js'
