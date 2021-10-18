@@ -1,7 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-try {
+async function run() {
   const sprintDurationDays = core.getInput('sprint-duration-days');
   const repoToken = core.getInput('repo-token');
   const octokit = github.getOctokit(repoToken);
@@ -16,6 +16,10 @@ try {
   console.log('------------------------------------');
   console.log(frequency);
   console.log('------------------------------------');
-} catch (error) {
+}
+
+try {
+  run();
+ } catch (error) {
   core.setFailed(error.message);
 }
