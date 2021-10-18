@@ -1,6 +1,6 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
-
+// const core = require('@actions/core');
+// const github = require('@actions/github');
+//
 // try {
 //   const sprintDurationDays = core.getInput('sprint-duration-days');
 //   const repoToken = core.getInput('repo-token');
