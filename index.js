@@ -7,21 +7,15 @@ try {
   const octokit = github.getOctokit(repoToken);
   const context = github.context;
 
-  console.log(`Hello ${sprintDurationDays}`);
-  console.log('------------------------------------');
   const time = (new Date()).toTimeString();
 
-  const frequency = octokit.rest.repos.getCodeFrequencyStats({
+  const frequency = await octokit.rest.repos.getCodeFrequencyStats({
     ...context.repo
   });
 
   console.log('------------------------------------');
   console.log(frequency);
   console.log('------------------------------------');
-
-  const payload = JSON.stringify(github.context.payload, undefined, 2)
-  console.log('------------------------------------');
-  console.log(`The event payload: ${payload}`);
 } catch (error) {
   core.setFailed(error.message);
 }
