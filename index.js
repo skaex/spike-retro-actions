@@ -9,6 +9,10 @@ async function run() {
   const octokit = github.getOctokit(repoToken);
   const context = github.context;
 
+  console.log('----------------------------');
+  console.log(context.repo.default_branch);
+  console.log('----------------------------');
+
   const time = (new Date()).toTimeString();
 
   const sprintEndDate = new Date();
