@@ -6,8 +6,7 @@ inputs:
     required: true
     default: 2
   repo-token:
-    description: 'The repository token'
-    required: true
+    description: 'The repository token GITHUB_TOKEN'
 outputs:
   time:
     description: 'The time we greeted you'
