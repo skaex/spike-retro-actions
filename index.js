@@ -9,12 +9,12 @@ async function run() {
   const octokit = github.getOctokit(repoToken);
   const context = github.context;
 
-  console.log('----------------------------');
-  console.log(context.repo);
-  console.log('----------------------------');
+
+  const repository = octokit.rest.repos.get({
+    ...context.repo
+  });
 
   const time = (new Date()).toTimeString();
-
   const sprintEndDate = new Date();
   const sprintStartDate = new Date(new Date().setDate(sprintEndDate.getDate() - sprintDurationDays));
   const sprintReportDate = `[${sprintStartDate.getMonth() + 1}/${sprintStartDate.getDate()}/${sprintStartDate.getFullYear()}]`;
@@ -35,7 +35,7 @@ A retrospective is a way to learn from experience. It's an opportunity for a tea
 * [1] Closed issues since ${sprintReportDate}
 * [1] New issues since ${sprintReportDate}
 
-Excluding merges, **[1] author** has pushed **[1] commit** to master and **[1] commit** to all branches. On [master], **[0] files** have changed and there have been **[0] additions** and **[0] deletions**.
+Excluding merges, **[1] author** has pushed **[1] commit** to ${repository.default_branch} and **[1] commit** to all branches. On [${repository.default_branch}], **[0] files** have changed and there have been **[0] additions** and **[0] deletions**.
 
 [Profile pics of all contributors]
 
