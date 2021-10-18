@@ -7,9 +7,6 @@ inputs:
     default: 2
   repo-token:
     description: 'The repository token GITHUB_TOKEN'
-outputs:
-  time:
-    description: 'The time we greeted you'
 runs:
   using: 'node12'
   main: 'index.js'
