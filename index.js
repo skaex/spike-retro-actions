@@ -16,11 +16,11 @@ async function run() {
   console.log('------------------------------------');
   console.log(codeFrequency);
   console.log('------------------------------------');
-  const participationFrequency = await octokit.rest.repos.getParticipationStats({
+  const contributorsStats = await octokit.rest.repos.getContributorsStats({
     ...context.repo
   });
   console.log('------------------------------------');
-  console.log(participationFrequency);
+  console.log(contributorsStats);
   console.log('------------------------------------');
 }
 
