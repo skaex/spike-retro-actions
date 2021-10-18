@@ -9,12 +9,18 @@ async function run() {
 
   const time = (new Date()).toTimeString();
 
-  const frequency = await octokit.rest.repos.getCodeFrequencyStats({
+  const codeFrequency = await octokit.rest.repos.getCodeFrequencyStats({
     ...context.repo
   });
 
   console.log('------------------------------------');
-  console.log(frequency);
+  console.log(codeFrequency);
+  console.log('------------------------------------');
+  const participationFrequency = await octokit.rest.repos.getParticipationStats({
+    ...context.repo
+  });
+  console.log('------------------------------------');
+  console.log(participationFrequency);
   console.log('------------------------------------');
 }
 
