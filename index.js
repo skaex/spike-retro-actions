@@ -10,7 +10,7 @@ async function run() {
   const context = github.context;
 
 
-  const repository = octokit.rest.repos.get({
+  const repository = await octokit.rest.repos.get({
     ...context.repo
   });
 
