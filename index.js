@@ -14,6 +14,10 @@ async function run() {
     ...context.repo
   });
 
+  console.log('-------------------------------------------');
+  console.log(repository);
+  console.log('-------------------------------------------');
+
   const time = (new Date()).toTimeString();
   const sprintEndDate = new Date();
   const sprintStartDate = new Date(new Date().setDate(sprintEndDate.getDate() - sprintDurationDays));
