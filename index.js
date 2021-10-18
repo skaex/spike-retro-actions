@@ -10,7 +10,7 @@ async function run() {
   const context = github.context;
 
   console.log('----------------------------');
-  console.log(context.repo.default_branch);
+  console.log(context.repo);
   console.log('----------------------------');
 
   const time = (new Date()).toTimeString();
