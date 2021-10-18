@@ -13,7 +13,7 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: spike-retro
         with:
-          sprint-duration-days: 8
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          - sprint-duration-days: 8
+          - repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.time }}"
