@@ -5,6 +5,9 @@ inputs:
     description: 'How many days are in the sprint? (Including weekends)'
     required: true
     default: 2
+  repo-token:
+    description: 'The repository token'
+    required: true
 outputs:
   time:
     description: 'The time we greeted you'
