@@ -26,8 +26,3 @@ try {
 } catch (error) {
   core.setFailed(error.message);
 }
-
-octokit.rest.repos.getCodeFrequencyStats({
-  owner,
-  repo,
-});
