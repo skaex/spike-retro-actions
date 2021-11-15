@@ -33,7 +33,7 @@ const getPullRequests = async (sinceDate) => {
   return formattedPulls;
 };
 
-const getIssuesByState = async (sinceDate) => {
+const getIssues = async (sinceDate) => {
   console.log("context repo")
   console.log(sinceDate)
   console.log(JSON.stringify(context.repo))
