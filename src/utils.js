@@ -38,11 +38,21 @@ const getIssues = async (sinceDate) => {
   console.log(sinceDate)
   console.log(JSON.stringify(context.repo))
   let page = 1
+  let issues = []
 
-  const issues = await paginatedFetch(
+  let loadedIssues = await paginatedFetch(
     octokit.rest.issues.listForRepo,
-    {...context.repo, since: sinceDate, page: page}
+    {...context.repo, since: sinceDate, page: page, per_page: 100}
   )
+  issues.concat(loadedIssues)
+  while(loadedIssues && loadedIssues.length === 100){
+    page += 1
+    loadedIssues = await paginatedFetch(
+      octokit.rest.issues.listForRepo,
+      {...context.repo, since: sinceDate, page: page, per_page: 100}
+    )
+    issues.concat(loadedIssues)
+  }
 
   // .filter(pull =>  sinceDate <= new Date(pull.created_at))
   console.log(JSON.stringify(issues))
