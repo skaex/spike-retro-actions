@@ -10,7 +10,7 @@ const {
 
 async function run() {
   const repository = await getRepository();
-  const { open: openedIssues, close: closedIssues, open, close } = await getIssues(sprintStartDate);
+  const { open: openedIssues, close: closedIssues } = await getIssues(sprintStartDate);
   const { merged, open, closed } =  await getPullRequests(sprintReportDate);
 
   const body = `
