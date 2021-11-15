@@ -34,9 +34,10 @@ const getPullRequests = async (sinceDate) => {
 
 const getIssues = async (sinceDate) => {
   console.log("context repo")
+  console.log(sinceDate)
   console.log(JSON.stringify(context.repo))
   const issues = await octokit.rest.issues.listForRepo({
-    ...context.repo
+    ...context.repo, since: sinceDate
   });
 
   // .filter(pull =>  sinceDate <= new Date(pull.created_at))
