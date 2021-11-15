@@ -35,7 +35,7 @@ const getPullRequests = async (sinceDate) => {
 const getIssues = async (sinceDate) => {
   console.log("context repo")
   console.log(JSON.stringify(context.repo))
-  const issues = await octokit.rest.issues.list({
+  const issues = await octokit.rest.issues.listForRepo({
     ...context.repo
   });
 
