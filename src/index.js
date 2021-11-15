@@ -1,6 +1,7 @@
 
 const {
   sprintReportDate,
+  sprintStartDate,
   getIssues,
   getPullRequests,
   getRepository,
@@ -9,7 +10,7 @@ const {
 
 async function run() {
   const repository = await getRepository();
-  const issues = await getIssues();
+  const issues = await getIssues(sprintStartDate);
   const { merged, open, closed } =  await getPullRequests(sprintReportDate);
 
   const body = `

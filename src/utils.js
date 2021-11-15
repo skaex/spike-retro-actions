@@ -8,7 +8,8 @@ const context = github.context;
 
 // const time = (new Date()).toTimeString();
 const sprintEndDate = new Date();
-const sprintStartDate = new Date(new Date().setDate(sprintEndDate.getDate() - sprintDurationDays));
+const sprintStartDate = new Date();
+sprintStartDate.setDate(sprintEndDate.getDate() - sprintDurationDays);
 const sprintReportDate = `[${sprintStartDate.getMonth() + 1}/${sprintStartDate.getDate()}/${sprintStartDate.getFullYear()}]`;
 
 const getPullRequests = async (sinceDate) => {
@@ -64,6 +65,7 @@ const createIssue = ({ title, body }) =>
 
 module.exports = {
   sprintReportDate,
+  sprintStartDate,
   createIssue,
   getIssues,
   getPullRequests,
