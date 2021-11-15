@@ -33,19 +33,22 @@ const getPullRequests = async (sinceDate) => {
   return formattedPulls;
 };
 
-const getIssues = async (sinceDate) => {
+const getIssuesByState = async (sinceDate) => {
   console.log("context repo")
   console.log(sinceDate)
   console.log(JSON.stringify(context.repo))
-  const issues = await octokit.rest.issues.listForRepo({
-    ...context.repo, since: sinceDate
-  });
+  let page = 1
+
+  const issues = await paginatedFetch(
+    octokit.rest.issues.listForRepo,
+    {...context.repo, since: sinceDate, page: page}
+  )
 
   // .filter(pull =>  sinceDate <= new Date(pull.created_at))
   console.log(JSON.stringify(issues))
    
 
-  return issues;
+  return groupBy(issues.data), "state";
 };
 
 
@@ -60,6 +63,16 @@ const createIssue = ({ title, body }) =>
     body
   });
 
+const paginatedFetch = (endpoint, params) =>
+  endpoint({
+    ...params
+  })
+
+const groupBy = (xs, key) =>
+  xs.reduce(function(rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
 
 // ========================== exports =========================== //
 
