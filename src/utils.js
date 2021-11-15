@@ -34,9 +34,6 @@ const getPullRequests = async (sinceDate) => {
 };
 
 const getIssues = async (sinceDate) => {
-  console.log("context repo")
-  console.log(sinceDate)
-  console.log(JSON.stringify(context.repo))
   let page = 1
   let issues = []
 
@@ -54,9 +51,6 @@ const getIssues = async (sinceDate) => {
     issues.push(...loadedIssues.data)
   }
 
-  // .filter(pull =>  sinceDate <= new Date(pull.created_at))
-  console.log(JSON.stringify(issues))
-  console.log()
   return groupBy(issues, "state");
 };
 
