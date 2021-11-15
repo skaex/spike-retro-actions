@@ -2,6 +2,7 @@
 const {
   sprintReportDate,
   getPullRequests,
+  getIssues,
   getRepository,
   createIssue
  } = require('./utils');
