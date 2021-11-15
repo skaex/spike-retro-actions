@@ -56,7 +56,8 @@ const getIssues = async (sinceDate) => {
 
   // .filter(pull =>  sinceDate <= new Date(pull.created_at))
   console.log(JSON.stringify(issues))
-  return groupBy(issues), "state";
+  console.log()
+  return groupBy(issues, "state");
 };
 
 
@@ -76,11 +77,11 @@ const paginatedFetch = (endpoint, params) =>
     ...params
   })
 
-  const groupBy = (xs, key) =>
-    xs.reduce(function(rv, x) {
-      (rv[x[key]] = rv[x[key]] || []).push(x);
-      return rv;
-  }, {});
+const groupBy = (xs, key) =>
+  xs.reduce(function(rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+}, {});
 
 // ========================== exports =========================== //
 
