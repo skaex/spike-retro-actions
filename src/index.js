@@ -8,6 +8,7 @@ const {
 
 async function run() {
   const repository = await getRepository();
+  const issues = await getIssues();
   const { merged, open, closed } =  await getPullRequests(sprintReportDate);
 
   const body = `
