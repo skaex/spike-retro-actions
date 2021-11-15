@@ -44,21 +44,19 @@ const getIssues = async (sinceDate) => {
     octokit.rest.issues.listForRepo,
     {...context.repo, since: sinceDate, page: page, per_page: 100}
   )
-  issues.concat(loadedIssues)
+  issues.concat(loadedIssues.data)
   while(loadedIssues && loadedIssues.length === 100){
     page += 1
     loadedIssues = await paginatedFetch(
       octokit.rest.issues.listForRepo,
       {...context.repo, since: sinceDate, page: page, per_page: 100}
     )
-    issues.concat(loadedIssues)
+    issues.concat(loadedIssues.data)
   }
 
   // .filter(pull =>  sinceDate <= new Date(pull.created_at))
   console.log(JSON.stringify(issues))
-   
-
-  return groupBy(issues.data), "state";
+  return groupBy(issues), "state";
 };
 
 
@@ -78,10 +76,10 @@ const paginatedFetch = (endpoint, params) =>
     ...params
   })
 
-const groupBy = (xs, key) =>
-  xs.reduce(function(rv, x) {
-    (rv[x[key]] = rv[x[key]] || []).push(x);
-    return rv;
+  const groupBy = (xs, key) =>
+    xs.reduce(function(rv, x) {
+      (rv[x[key]] = rv[x[key]] || []).push(x);
+      return rv;
   }, {});
 
 // ========================== exports =========================== //
