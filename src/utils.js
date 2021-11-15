@@ -64,6 +64,7 @@ const createIssue = ({ title, body }) =>
 module.exports = {
   sprintReportDate,
   createIssue,
+  getIssues,
   getPullRequests,
   getRepository,
 }
