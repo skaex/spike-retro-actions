@@ -8,7 +8,8 @@ const context = github.context;
 
 // const time = (new Date()).toTimeString();
 const sprintEndDate = new Date();
-const sprintStartDate = new Date(new Date().setDate(sprintEndDate.getDate() - sprintDurationDays));
+const sprintStartDate = new Date();
+sprintStartDate.setDate(sprintEndDate.getDate() - sprintDurationDays);
 const sprintReportDate = `[${sprintStartDate.getMonth() + 1}/${sprintStartDate.getDate()}/${sprintStartDate.getFullYear()}]`;
 
 const getPullRequests = async (sinceDate) => {
@@ -32,6 +33,28 @@ const getPullRequests = async (sinceDate) => {
   return formattedPulls;
 };
 
+const getIssues = async (sinceDate) => {
+  let page = 1
+  let issues = []
+
+  let loadedIssues = await paginatedFetch(
+    octokit.rest.issues.listForRepo,
+    {...context.repo, since: sinceDate, page: page, per_page: 100}
+  )
+  issues.push(...loadedIssues.data)
+  while(loadedIssues && loadedIssues.length === 100){
+    page += 1
+    loadedIssues = await paginatedFetch(
+      octokit.rest.issues.listForRepo,
+      {...context.repo, since: sinceDate, page: page, per_page: 100}
+    )
+    issues.push(...loadedIssues.data)
+  }
+
+  return groupBy(issues, "state");
+};
+
+
 const getRepository = async () => octokit.rest.repos.get({
     ...context.repo
   });
@@ -43,12 +66,24 @@ const createIssue = ({ title, body }) =>
     body
   });
 
+const paginatedFetch = (endpoint, params) =>
+  endpoint({
+    ...params
+  })
+
+const groupBy = (xs, key) =>
+  xs.reduce(function(rv, x) {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+}, {});
 
 // ========================== exports =========================== //
 
 module.exports = {
   sprintReportDate,
+  sprintStartDate,
   createIssue,
+  getIssues,
   getPullRequests,
   getRepository,
 }

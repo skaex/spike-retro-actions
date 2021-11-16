@@ -1,6 +1,8 @@
 
 const {
   sprintReportDate,
+  sprintStartDate,
+  getIssues,
   getPullRequests,
   getRepository,
   createIssue
@@ -8,6 +10,7 @@ const {
 
 async function run() {
   const repository = await getRepository();
+  const { open: openedIssues, close: closedIssues } = await getIssues(sprintStartDate);
   const { merged, open, closed } =  await getPullRequests(sprintReportDate);
 
   const body = `
@@ -19,8 +22,8 @@ async function run() {
   ## Insights
   * ${merged && merged.length ? merged.length : 0} Merged pull requests since ${sprintReportDate}
   * ${open && open.length ? open.length : 0} Open pull requests since ${sprintReportDate}
-  * [1] Closed issues since ${sprintReportDate}
-  * [1] New issues since ${sprintReportDate}
+  * ${closedIssues && closedIssues.length ? closedIssues.length : 0} Closed issues since ${sprintReportDate}
+  * ${openedIssues && openedIssues.length ? openedIssues.length : 0} New issues since ${sprintReportDate}
   
   Excluding merges, **[1] author** has pushed **[1] commit** to ${repository.default_branch} and **[1] commit** to all branches. On [${repository.default_branch}], **[0] files** have changed and there have been **[0] additions** and **[0] deletions**.
   
